@@ -2,6 +2,8 @@ package edu.washington.nguyen51.lifecounter
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -11,95 +13,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        p1Add.setOnClickListener {
-            val lifeUpdated = updateLife(p1Lives, plusOne)
-            p1Lives.setText(lifeUpdated.lifeCount)
-        }
-        p1Minus.setOnClickListener{
-            val lifeUpdated = updateLife(p1Lives, minusOne)
-            p1Lives.setText(lifeUpdated.lifeCount)
-            if (lifeUpdated.lost) {
-                loseMessage("Player 1")
-            }
-        }
-        p1Add5.setOnClickListener {
-            val lifeUpdated = updateLife(p1Lives, plus5)
-            p1Lives.setText(lifeUpdated.lifeCount)
-        }
-        p1Minus5.setOnClickListener{
-            val lifeUpdated = updateLife(p1Lives, minus5)
-            p1Lives.setText(lifeUpdated.lifeCount)
-            if (lifeUpdated.lost) {
-                loseMessage("Player 1")
-            }
-        }
+        setPlayer(p1Name, p1Lives, p1Add, p1Minus, p1Add5, p1Minus5)
+        setPlayer(p2Name, p2Lives, p2Add, p2Minus, p2Add5, p2Minus5)
+        setPlayer(p3Name, p3Lives, p3Add, p3Minus, p3Add5, p3Minus5)
+        setPlayer(p4Name, p4Lives, p4Add, p4Minus, p4Add5, p4Minus5)
+    }
 
-        p2Add.setOnClickListener {
-            val lifeUpdated = updateLife(p2Lives, plusOne)
-            p2Lives.setText(lifeUpdated.lifeCount)
-        }
-        p2Minus.setOnClickListener{
-            val lifeUpdated = updateLife(p2Lives, minusOne)
-            p2Lives.setText(lifeUpdated.lifeCount)
-            if (lifeUpdated.lost) {
-                loseMessage("Player 2")
-            }
-        }
-        p2Add5.setOnClickListener {
-            val lifeUpdated = updateLife(p2Lives, plus5)
-            p2Lives.setText(lifeUpdated.lifeCount)
-        }
-        p2Minus5.setOnClickListener{
-            val lifeUpdated = updateLife(p2Lives, minus5)
-            p2Lives.setText(lifeUpdated.lifeCount)
-            if (lifeUpdated.lost) {
-                loseMessage("Player 2")
-            }
-        }
+    data class Player (
+        val name: TextView,
+        val lives: TextView
+    )
 
-        p3Add.setOnClickListener {
-            val lifeUpdated = updateLife(p3Lives, plusOne)
-            p3Lives.setText(lifeUpdated.lifeCount)
-        }
-        p3Minus.setOnClickListener{
-            val lifeUpdated = updateLife(p3Lives, minusOne)
-            p3Lives.setText(lifeUpdated.lifeCount)
-            if (lifeUpdated.lost) {
-                loseMessage("Player 3")
-            }
-        }
-        p3Add5.setOnClickListener {
-            val lifeUpdated = updateLife(p3Lives, plus5)
-            p3Lives.setText(lifeUpdated.lifeCount)
-        }
-        p3Minus5.setOnClickListener{
-            val lifeUpdated = updateLife(p3Lives, minus5)
-            p3Lives.setText(lifeUpdated.lifeCount)
-            if (lifeUpdated.lost) {
-                loseMessage("Player 3")
-            }
-        }
+    fun setPlayer(name: TextView, lives: TextView, add1: Button, minus1: Button, addFive: Button, minusFive: Button) {
+        val p = Player(name, lives)
+        setListeners(p, add1, plusOne)
+        setListeners(p, minus1, minusOne)
+        setListeners(p, addFive, plus5)
+        setListeners(p, minusFive, minus5)
+    }
 
-        p4Add.setOnClickListener {
-            val lifeUpdated = updateLife(p4Lives, plusOne)
-            p4Lives.setText(lifeUpdated.lifeCount)
-        }
-        p4Minus.setOnClickListener{
-            val lifeUpdated = updateLife(p4Lives, minusOne)
-            p4Lives.setText(lifeUpdated.lifeCount)
+    fun setListeners(p: Player, btn: Button, action: Int) {
+        btn.setOnClickListener {
+            val lifeUpdated = updateLife(p.lives, action)
+            p.lives.setText(lifeUpdated.lifeCount)
             if (lifeUpdated.lost) {
-                loseMessage("Player 4")
-            }
-        }
-        p4Add5.setOnClickListener {
-            val lifeUpdated = updateLife(p4Lives, plus5)
-            p4Lives.setText(lifeUpdated.lifeCount)
-        }
-        p4Minus5.setOnClickListener{
-            val lifeUpdated = updateLife(p4Lives, minus5)
-            p4Lives.setText(lifeUpdated.lifeCount)
-            if (lifeUpdated.lost) {
-                loseMessage("Player 4")
+                loseMessage(p.name.text.toString())
             }
         }
     }

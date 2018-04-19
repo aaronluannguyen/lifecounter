@@ -7,7 +7,7 @@ data class LifeUpdate (
     val lost: Boolean
 )
 
-fun updateLife(view: TextView, action: String): LifeUpdate {
+fun updateLife(view: TextView, action: Int): LifeUpdate {
     val currentLives = view.text.toString().toInt()
     val newLifeCount = calculateLifeCount(currentLives, action)
     val lost = calculateLost(newLifeCount)

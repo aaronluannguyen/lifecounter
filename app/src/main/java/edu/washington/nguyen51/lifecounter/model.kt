@@ -1,13 +1,7 @@
 package edu.washington.nguyen51.lifecounter
 
-fun calculateLifeCount(num: Int, action: String): Int {
-    when (action) {
-        plusOne -> return num + 1
-        minusOne -> return accountForZero(num - 1)
-        plus5 -> return num + 5
-        minus5 -> return accountForZero(num - 5)
-    }
-    return num
+fun calculateLifeCount(num: Int, action: Int): Int {
+    return accountForZero(num + action)
 }
 
 fun calculateLost(num: Int): Boolean {
